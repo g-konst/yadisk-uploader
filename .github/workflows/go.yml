@@ -21,19 +21,18 @@ jobs:
       with:
         go-version: '1.20'
 
-    - name: Build
-      run: |
-        mkdir -p dist
-        GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -o dist/yadisk-uploader-${{ matrix.goos }}-${{ matrix.goarch }} .
+    - run: mkdir -p dist
 
-    - name: Archive binaries (Windows)
+    - name: Build and Archive binaries (Windows)
       if: matrix.goos == 'windows'
       run: |
+        GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -o dist/yadisk-uploader-${{ matrix.goos }}-${{ matrix.goarch }}.exe .
         zip -r dist/yadisk-uploader-${{ matrix.goos }}-${{ matrix.goarch }}.zip dist/yadisk-uploader-${{ matrix.goos }}-${{ matrix.goarch }}.exe
 
-    - name: Archive binaries (Linux/macOS)
+    - name: Build and Archive binaries (Linux/macOS)
       if: matrix.goos != 'windows'
       run: |
+        GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -o dist/yadisk-uploader-${{ matrix.goos }}-${{ matrix.goarch }} .
         tar -czvf dist/yadisk-uploader-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz -C dist yadisk-uploader-${{ matrix.goos }}-${{ matrix.goarch }}
 
     - name: Upload binaries
@@ -41,7 +40,7 @@ jobs:
       with:
         name: yadisk-uploader-${{ matrix.goos }}-${{ matrix.goarch }}
         path: dist/yadisk-uploader-${{ matrix.goos }}-${{ matrix.goarch }}.*
-  
+
   release:
     runs-on: ubuntu-latest
     needs: build
@@ -56,6 +55,12 @@ jobs:
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
-        files: dist/*
+        files: |
+          dist/yadisk-uploader-linux-amd64.tar.gz
+          dist/yadisk-uploader-darwin-amd64.tar.gz
+          dist/yadisk-uploader-windows-amd64.zip
+          dist/yadisk-uploader-linux-arm64.tar.gz
+          dist/yadisk-uploader-darwin-arm64.tar.gz
+          dist/yadisk-uploader-windows-arm64.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -55,12 +55,6 @@ jobs:
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
-        files: |
-          dist/yadisk-uploader-linux-amd64.tar.gz
-          dist/yadisk-uploader-darwin-amd64.tar.gz
-          dist/yadisk-uploader-windows-amd64.zip
-          dist/yadisk-uploader-linux-arm64.tar.gz
-          dist/yadisk-uploader-darwin-arm64.tar.gz
-          dist/yadisk-uploader-windows-arm64.zip
+        files: dist/*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

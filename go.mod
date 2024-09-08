@@ -1,6 +1,6 @@
 module yadisk-uploader
 
-go 1.21.6
+go 1.20
 
 require github.com/g-konst/yadisk-go v0.0.0-20240908153618-0b8809b441cc
 

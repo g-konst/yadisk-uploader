@@ -49,6 +49,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Download binaries
+      uses: actions/download-artifact@v3
+      with:
+        path: dist
+
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:

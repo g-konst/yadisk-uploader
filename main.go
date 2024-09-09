@@ -13,7 +13,7 @@ import (
 	"sync"
 	"time"
 
-	yadisk "github.com/g-konst/yadisk-go/pkg"
+	yadisk "github.com/g-konst/yadisk-go/client"
 )
 
 var (

@@ -11,7 +11,7 @@ go build -o yadisk-uploader main.go
 [Yandex Disk Token](https://yandex.com/dev/disk-api/doc/en/concepts/quickstart#oauth) can be also stored in ENV (`YANDEX_DISK_TOKEN`)
 
 ```shell
-yadisk-uploader -i ./my-local-folder -o /some-folder-on-disk -w 4 -t <yandex_disk_token>
+yadisk-uploader -i ./my-local-folder -o /some-folder-on-disk -w 4 -token <yandex_disk_token>
 
 Usage of yadisk-uploader:
   -i string
